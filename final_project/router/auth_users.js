@@ -48,8 +48,20 @@ regd_users.post("/login", (req,res) => {
  
 // Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+    const isbn = req.params.isbn;
+    const username = req.user.username;  // Assuming req.user is set after JWT auth middleware
+  
+    const book = books[isbn];
+    if (!book) {
+      return res.status(404).json({ message: "Book not found." });
+    }
+  
+    if (book.reviews && book.reviews[username]) {
+      delete book.reviews[username];
+      return res.status(200).json({ message: "Review deleted successfully.", reviews: book.reviews });
+    } else {
+      return res.status(404).json({ message: "Review not found for this user." });
+    }
 });
 
 module.exports.authenticated = regd_users;
