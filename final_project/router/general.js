@@ -3,6 +3,8 @@ let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
+const axios = require('axios');
+
 
 // Check if a user with the given username already exists
 const doesExist = (username) => {
@@ -95,5 +97,52 @@ public_users.get('/review/:isbn',function (req, res) {
   
     res.status(200).json({ reviews: book.reviews });
   });
+
+
+  async function getBooks() {
+    try {
+      const response = await axios.get('https://deepakmca207-5000.theianext-0-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/');
+      console.log('Books:', response.data.books);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  getBooks();
+
+  async function getBookByISBN(isbn) {
+    try {
+      const response = await axios.get(`https://deepakmca207-5000.theianext-0-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/isbn/${isbn}`);
+      console.log('Book details:', response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  getBookByISBN('12345');
+
+  async function getBooksByAuthor(author) {
+    try {
+      const response = await axios.get(`https://deepakmca207-5000.theianext-0-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/author/${author}`);
+      console.log('Books by author:', response.data.books);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  getBooksByAuthor('Author Name');
+
+  async function getBooksByTitle(title) {
+    try {
+      const response = await axios.get(`https://deepakmca207-5000.theianext-0-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/title/${title}`);
+      console.log('Books by title:', response.data.books);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  getBooksByTitle('Book Title');
+
+
 
 module.exports.general = public_users;
