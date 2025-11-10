@@ -108,7 +108,7 @@ public_users.get('/review/:isbn',function (req, res) {
     }
   }
   
-  getBooks();
+  // getBooks();
 
   async function getBookByISBN(isbn) {
     try {
@@ -119,7 +119,7 @@ public_users.get('/review/:isbn',function (req, res) {
     }
   }
   
-  getBookByISBN('12345');
+ // getBookByISBN('12345');
 
   async function getBooksByAuthor(author) {
     try {
@@ -130,7 +130,7 @@ public_users.get('/review/:isbn',function (req, res) {
     }
   }
   
-  getBooksByAuthor('Author Name');
+ // getBooksByAuthor('Author Name');
 
   async function getBooksByTitle(title) {
     try {
@@ -141,7 +141,7 @@ public_users.get('/review/:isbn',function (req, res) {
     }
   }
   
-  getBooksByTitle('Book Title');
+ // getBooksByTitle('Book Title');
 
 
 
