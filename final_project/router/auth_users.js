@@ -35,12 +35,13 @@ regd_users.post("/login", (req,res) => {
   if(authenticatedUser(username, password)){
     let accessToken = jwt.sign({
         data: password
-    }, 'SECRET_KEY', {expiresIn: '1h' });
+    }, "fingerprint_customer", {expiresIn: '1h' });
 
     // save token in session 
     req.session.authorization = {
         accessToken: accessToken
     };
+    req.session.user = { username };
 
     return res.status(200).json({message: "Login successfully.", accessToken});
   }

@@ -18,7 +18,7 @@ app.use("/customer/auth/*", function auth(req,res,next){
     const token = req.session.authorization['accessToken'];
 
     try {
-        const decoded = jwt.verify(token, 'jwt_secret_key');
+        const decoded = jwt.verify(token, "fingerprint_customer");
         req.user = decoded;
         next();        
     } catch (err) {
